@@ -35,8 +35,20 @@ Make sure you have the following installed before running the project:
 
 ---
 
-## **Installation**
-Follow these steps to set up the project:
+## **🖥️ How It Works**
+
+📌 Step 1: Capturing Hand Data (mediapipe_server.py)
+Tracks hand movements in real-time.
+Extracts joint positions and sends data via a socket.
+📌 Step 2: Creating Joint Points (frames.py)
+Converts raw hand-tracking data into structured frame points.
+Defines key joint locations for the hand rig in Blender.
+📌 Step 3: Creating IK Relations (ik_constraints.py)
+Uses Inverse Kinematics (IK) Constraints to simulate natural hand motion.
+Ensures fingers bend correctly based on tracking data.
+📌 Step 4: Updating Hand in Blender (hand_track.py)
+Receives hand tracking data from mediapipe_server.py.
+Updates the hand rig bones in Blender dynamically.
 
 1. **Clone the repository**
    ```sh
