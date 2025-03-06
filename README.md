@@ -29,8 +29,8 @@ This project enables **real-time hand tracking** in **Blender** using **Mediapip
 
 Ensure you have the following installed before running the project:  
 ##**🖥️ How It Works**
-This system works using a server-client model where hand tracking data is captured and sent to Blender for animation.
 
+<br /> This system works using a server-client model where hand tracking data is captured and sent to Blender for animation.
 <br /> 📌 Step 1: Capturing Hand Data (mediapipe_server.py)
 Uses Mediapipe to detect hand landmarks.
 Extracts joint positions and normalizes them.
