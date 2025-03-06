@@ -9,10 +9,7 @@ This project enables **real-time hand tracking** in **Blender** using **Mediapip
 - [📦 Requirements](#-requirements)  
 - [⚙️ Installation](#-installation)  
 - [🖥️ How It Works](#-how-it-works)  
-- [📂 Folder Structure](#-folder-structure)  
-- [🎬 Demo](#-demo)  
-- [🤝 Contributing](#-contributing)  
-- [📜 License](#-license)  
+- [🎬 Demo](#-demo)   
 
 ---
 
@@ -89,3 +86,9 @@ This pipeline ensures that **live hand movements** are accurately reflected in B
 Install the required packages using:  
 ```bash
 pip install -r requirements.txt
+```
+
+### 🎬 **Demo**
+
+comming soon
+
