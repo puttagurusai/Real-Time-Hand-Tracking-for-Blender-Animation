@@ -24,10 +24,6 @@ This project enables **real-time hand tracking** in **Blender** using **Mediapip
 ✅ **Supports multiple hand gestures** for animation control  
 
 ---
-## **✨ Special Features**
-
-### 🔹 **Smoothing Hand Motion**
-To prevent jittery or unstable hand tracking, we use a **smoothing algorithm** to blend previous and current frames.
 
 ## **✨ Special Features**
 
