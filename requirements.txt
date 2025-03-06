@@ -1,0 +1,5 @@
+mediapipe
+blender_python_api
+numpy
+socket
+json
