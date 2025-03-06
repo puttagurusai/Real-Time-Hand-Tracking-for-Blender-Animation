@@ -33,11 +33,11 @@ To prevent jittery or unstable hand tracking, we use a **smoothing algorithm** t
 
 ### 🔹 **Smoothing Hand Motion**
 To prevent jittery or unstable hand tracking, we use a **smoothing algorithm** to blend previous and current frames.
-
+UPDATE_THRESHOLD: Controls how sensitive the Blender hand rig is to movement changes.
 ```python
 SMOOTHING_FACTOR = 0.6  # Weight for smoothing (0.0 to 1.0, higher is more reactive)
-
-
+UPDATE_THRESHOLD = 0.001  # Minimum change required to update Blender bones
+```
 ---
 ## **📦 Requirements**  
 
