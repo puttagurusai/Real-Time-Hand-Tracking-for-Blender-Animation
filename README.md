@@ -51,8 +51,9 @@ This project follows a structured pipeline to **track hand movements** and **app
 ### 📌 **Step 2: Creating the Hand Armature in Blender** (Manual Setup)  
 - Before applying tracking data, we first **create a structured hand rig (armature)** in Blender.  
 - The armature consists of **bones for each finger joint**, ensuring proper movement.  
-- Each bone is named to match the **tracking data points**, allowing seamless updates later.  
-
+- Each bone is named to match the **tracking data points**, allowing seamless updates later.
+- ![image](https://github.com/user-attachments/assets/01a27c94-418b-4d80-8965-896f637ccef7)
+ 
 ---
 
 ### 📌 **Step 3: Creating Joint Points** (`frames.py`)  
