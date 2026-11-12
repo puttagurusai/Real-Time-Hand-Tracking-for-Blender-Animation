@@ -7,6 +7,24 @@ cheat sheet, troubleshooting, ideas for next steps) start with [PROJECT_GUIDE.md
 v5 is the maintained pipeline. The older scripts in the parent folder (`hand_full_control*.py`,
 `v1.py`, `src/`, `shared_memory/`) are not used by it and were left untouched.
 
+## Setup on a new machine
+
+```
+python v5/setup_tools.py              # installs what is missing; asks before the 395 MB Blender download
+python v5/setup_tools.py --dry-run    # shows what it would do and changes nothing
+python v5/setup_tools.py --yes        # no questions
+```
+
+It does three things, each skipped if already done (safe to rerun): `pip install -r requirements.txt`
+(mediapipe, opencv-python, numpy); fetches the MediaPipe `hand_landmarker.task` model into `tools/models/`
+(reusing a copy in the project root if you have one); and, only if no Blender is found (PATH, the usual
+install folders, `tools/`), downloads the portable Blender 5.1.2 from download.blender.org into `tools/`
+(Windows and Linux; on macOS install Blender yourself). Downloads are HTTPS from `storage.googleapis.com` and
+`download.blender.org` only, checked against pinned SHA-256 values, written as `.part` files and renamed
+when complete, with retries. Blender needs about 1.4 GB free while it installs (the archive, then the unpacked
+build of about 1 GB). Flags: `--skip-python`, `--skip-model`, `--skip-blender`, `--tools-dir`, `--keep-archive`.
+`tools/tools.json` records what was installed. `test_setup_tools.py` tests all of this offline.
+
 ## Run
 
 1. Open **`v5/untitled_rig_fitted.blend`** (one hand) or **`v5/untitled_two_hands_swapped.blend`** (two hands) in Blender: the rig with a skeleton fitted to the mesh (see "Skeleton fitted to the mesh"
@@ -311,6 +329,7 @@ Rebuild: `blender -b --disable-autoexec untitled.blend1 --python v5/build_rig_co
 
 ```
 python v5/test_pipeline.py
+python v5/test_setup_tools.py
 blender -b --disable-autoexec untitled.blend --python v5/test_rig_headless.py -- v5
 blender -b --disable-autoexec v5/untitled_rig_fixed_v2.blend --python v5/verify_copy_headless.py -- v5
 blender -b --disable-autoexec v5/untitled_rig_fixed_v2.blend --python v5/test_mimic_headless.py -- v5
@@ -334,6 +353,7 @@ The Blender tests load the .blend in memory and never save it.
 | `one_euro.py`, `outlier.py` | filtering |
 | `recording.py`, `replay.py` | record and replay |
 | `rig_tools.py` | rig validation, IK cleanup, bone roll, joint limits; the only bone-to-empty mapping |
+| `setup_tools.py` (+ `requirements.txt` in the project root) | one-command setup: pip packages, MediaPipe model and Blender into `tools/` |
 | `build_rig_copy.py` | builds a fixed rig copy |
 | `build_two_hands.py` | adds a second hand (armature, empties, mesh) to a fixed copy |
 | `fit_skeleton.py`, `hand_detect.py` | fit the skeleton to the mesh with MediaPipe on renders of it (a new file) |

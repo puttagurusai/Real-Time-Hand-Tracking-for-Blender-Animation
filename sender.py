@@ -25,13 +25,19 @@ from outlier import OutlierGate
 from recording import Recorder
 from slots import SLOT_NAMES, SlotAssigner
 
-MODEL_PATH = Path(__file__).resolve().parent.parent / "hand_landmarker.task"
+_PROJECT = Path(__file__).resolve().parent.parent
+# the model comes from `python v5/setup_tools.py` (tools/models/); a copy in the project root still works
+MODEL_PATH = next((p for p in (_PROJECT / "tools" / "models" / "hand_landmarker.task", _PROJECT / "hand_landmarker.task")
+                   if p.exists()), _PROJECT / "tools" / "models" / "hand_landmarker.task")
 ACK = b"ack"
 
 
 def build_landmarker(model_path=MODEL_PATH, num_hands=1, detect_confidence=None):
     """detect_confidence: how sure MediaPipe must be that it sees a hand. 0.7 for one hand; a second
     hand that is smaller, turned or partly hidden scores lower, so two hands use 0.5."""
+    if not Path(model_path).exists():
+        raise FileNotFoundError(f"MediaPipe model not found: {model_path}\n"
+                                "Run:  python v5/setup_tools.py   (downloads it into tools/models/)")
     if detect_confidence is None:
         detect_confidence = 0.7 if num_hands == 1 else 0.5
     options = vision.HandLandmarkerOptions(

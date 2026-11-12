@@ -29,13 +29,18 @@ Run order: open the .blend, run the text block `v5_run_receiver`, then `python v
 
 ## 2. Setup
 
+**Quickest way: `python v5/setup_tools.py`.** It installs `requirements.txt`, puts the MediaPipe model in
+`tools/models/` and, if no Blender is found, downloads the portable Blender 5.1.2 into `tools/` (asks first;
+about 395 MB, needs about 1.4 GB free; add `--dry-run` to preview, `--yes` for no questions). Downloads are
+checked against pinned SHA-256 values. Details in the README's "Setup on a new machine". What it sets up:
+
 - **Blender 5.1** (tested headless at `C:\Program Files\Blender Foundation\Blender 5.1\blender.exe`). Its own Python runs the receiver.
 - **Python 3.13** with `opencv-python`, `mediapipe`, `numpy` for the sender (and for `fit_skeleton.py`'s `python=` option, which runs MediaPipe outside Blender).
-- **`hand_landmarker.task`** (MediaPipe model) in the project root, next to the `v5` folder. `sender.py` looks for it there.
+- **`hand_landmarker.task`** (MediaPipe model) in `tools/models/`; `sender.py` and `hand_detect.py` look there first and then in the project root.
 - Windows 11 was used. Camera 0 at 640x480, 30 fps by default; UDP port 5004 on 127.0.0.1 (`--port` on the sender, `PORT` in the receiver, they must match).
 
 ```
-pip install opencv-python mediapipe numpy
+python -m pip install -r requirements.txt     # what setup_tools.py runs for you
 ```
 
 Files to open in Blender: `v5/untitled_rig_fitted.blend` (one hand) or `v5/untitled_two_hands_swapped.blend`
@@ -98,6 +103,7 @@ choice per hand.
 
 | Symptom | Likely cause | Check and fix |
 |---|---|---|
+| `MediaPipe model not found` | the model is not downloaded yet | `python v5/setup_tools.py` |
 | Nothing moves | receiver not running, or ports differ | run `v5_run_receiver` first; sender and receiver both on 5004; the sender prints `receiver=acked` when Blender answers |
 | Only one hand moves | the .blend has one rig, or MediaPipe sees one hand | preview shows `hands seen N, tracking M`; open `untitled_two_hands_swapped.blend`; `--hands 2`; lower `--detect-confidence` |
 | `seen 2` but `tracking 1` | sender has not heard from Blender yet | start the receiver; wait for `Blender has 2 hand rigs` |

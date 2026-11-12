@@ -14,7 +14,10 @@ from pathlib import Path
 import mediapipe as mp
 from mediapipe.tasks.python import vision
 
-DEFAULT_MODEL = Path(__file__).resolve().parent.parent / "hand_landmarker.task"
+_PROJECT = Path(__file__).resolve().parent.parent
+# from `python v5/setup_tools.py` (tools/models/); a copy in the project root still works
+DEFAULT_MODEL = next((p for p in (_PROJECT / "tools" / "models" / "hand_landmarker.task", _PROJECT / "hand_landmarker.task")
+                      if p.exists()), _PROJECT / "tools" / "models" / "hand_landmarker.task")
 
 
 def detect(image_path, model=DEFAULT_MODEL, confidence=0.3):
